@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+        <data>
+                <record model='ir.ui.view' id='sale_order_form_view'>
+                        <field name='name'>sale.order.taller</field>
+                        <field name='model'>sale.order</field>
+                        <field name='inherit_id' ref='sale.view_order_form'/>
+                        <field name='type'>form</field>
+                        <field name='arch' type='xml'>
+                            <sheet position="inside">
+                            		<group string="Datos del Vehículo">
+	                            		<group> 
+    	                        			<group>
+	    	    	                			<field name="antena"></field>
+			    		                        <field name="autoestereo"></field>
+				    	                        <field name="birlo"></field>
+	    		        	                    <field name="pasacorriente"></field>
+	        		        	           		<field name="espejos_laterales"></field>
+	            		        	       	</group>
+	                		        	   	<group>
+	                    		       			<field name="refaccion"></field>
+	                        		   			<field name="maneral"></field>
+		                        	   			<field name="radio"></field>
+		                           				<field name="senales"></field>
+			                           			<field name="tapetes"></field>
+			    	                       	</group>
+		    	    	                </group>
+	    	    	    	            <group>
+	        	    	    	        	<group> 
+	            	    	    	    		<field name="extinguidor"></field>
+	                	    	    			<field name="gato"></field>
+	                    	    				<field name="herramienta"></field>
+	                        					<field name="limpiadores"></field>
+			                    	    	</group>
+			                    	    	<group>
+	    		                    			<field name="nivel_combustible"></field>
+	        		                			<field name="tapon_gasolina"></field>
+		            		            		<field name="tapon_ruedas"></field>
+		                		        		<field name="otro"></field>
+		                		        	</group>
+		                		        	</group>
+	                        		</group>
+	                        </sheet>
+                        </field>
+                </record>
+                <record model='ir.ui.view' id='sale_vehicle_form_view'>
+                	<field name='name'>sale.order.vehicle</field>
+                	<field name='model'>sale.order</field>
+                	<field name='inherit_id' ref='sale.view_order_form'/>
+                	<field name='type'>form</field>
+                	<field name='arch' type='xml'>
+                		<field name="partner_id" position="after">
+                			<field name="vehicle_id"/>
+                		</field>
+                	</field>
+                </record>
+			</data>
+</openerp>
