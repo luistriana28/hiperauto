@@ -7,7 +7,7 @@
                         <field name='inherit_id' ref='sale.view_order_form'/>
                         <field name='type'>form</field>
                         <field name='arch' type='xml'>
-                            <sheet position="inside">
+                            <xpath expr='/form/sheet/group' position="after">
                             		<group string="Datos del Vehículo">
 	                            		<group> 
     	                        			<group>
@@ -40,7 +40,7 @@
 		                		        	</group>
 		                		        	</group>
 	                        		</group>
-	                        </sheet>
+	                        </xpath>
                         </field>
                 </record>
                 <record model='ir.ui.view' id='sale_vehicle_form_view'>
