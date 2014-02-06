@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+        <data>
+			<record model='ir.ui.view' id='fleet_vehicle_form'>
+            	<field name='name'>fleet.vehicle.taller</field>
+            	<field name='model'>fleet.vehicle</field>
+            	<field name='inherit_id' ref='fleet.fleet_vehicle_form'/>
+            	<field name='type'>form</field>
+            	<field name='arch' type='xml'>
+            		<field name="driver_id" position="before">
+            			<field name="modelo"/>
+            		</field>
+                </field>
+            </record>
+			<record model='ir.ui.view' id='fleet_vehicle_form'>
+            	<field name='name'>fleet.vehicle.delete</field>
+            	<field name='model'>fleet.vehicle</field>
+            	<field name='inherit_id' ref='fleet.fleet_vehicle_form'/>
+            	<field name='type'>form</field>
+            	<field name='arch' type='xml'>
+            		<button name="return_action_to_open" type="object" context="{'xml_id':'fleet_vehicle_log_contract_act'}" string="Contracts" help="show the contract for this vehicle" position="replace"/>
+                    <button name="act_show_log_cost" type="object" string="Costs" help="show all the costs for this vehicle" groups="fleet.group_fleet_manager" position="replace"/>
+                    <button name="return_action_to_open" type="object" context="{'xml_id':'fleet_vehicle_log_services_act'}" string="Services" help="show the services logs for this vehicle" position="replace"/>
+                    <button name="return_action_to_open" type="object" context="{'xml_id':'fleet_vehicle_log_fuel_act'}" string="Fuel Logs" help="show the fuel logs for this vehicle" position="replace"/>
+                    <button name="return_action_to_open" type="object" context="{'xml_id':'fleet_vehicle_odometer_act'}" string="Odometer Logs" help="show the odometer logs for this vehicle" position="replace"/>
+                    <field name="location" position="replace"/>
+                    <field name="acquisition_date" position="replace"/>
+                    <field name="car_value" position="replace"/>
+                    <field name="seats" position="replace"/>
+                    <field name="co2" position="replace"/>
+                    <field name="horsepower" position="replace"/>
+                    <field name="horsepower_tax" position="replace"/>
+                    <field name="power" position="replace"/>
+                    <field name="driver_id" string="Cliente" domain="[('customer',=,True)]"/>
+                    <field name="vin_sn" string="Número de serie"/>
+                </field>
+            </record>
+      	</data>
+</openerp>
