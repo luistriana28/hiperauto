@@ -11,7 +11,7 @@
     "website": "http://www.marsistemas.com",
     "category": "Sales",
     "depends": ["sale","base","sale_stock","fleet"],
-    "data":['taller_mecanico_view.xml'],
+    "data":['taller_mecanico_view.xml','taller_vehicle_view.xml'],
     "demo_xml": [],
     "update_xml": [],
     "active": False,

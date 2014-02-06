@@ -50,7 +50,7 @@
                 	<field name='type'>form</field>
                 	<field name='arch' type='xml'>
                 		<field name="partner_id" position="after">
-                			<field name="vehicle_id"/>
+                			<field name="vehicle_id" domain="['|',('driver_id','=',partner_id),('driver_id','=',False)]"/>
                 		</field>
                 	</field>
                 </record>
