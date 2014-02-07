@@ -5,7 +5,7 @@ class sale_order(osv.osv):
     _name = 'sale.order'
     _inherit = 'sale.order'
     _columns = {
-                'vehicle_id':fields.many2one('fleet.vehicle', 'Vehículo'),
+                'vehicle_id':fields.many2one('fleet.vehicle','Vehículo',required="True",domain="['|',('driver_id_custom','=',partner_id),('driver_id_custom','=',False)]"),
                 'antena': fields.boolean('Antena'),
                 'autoestereo': fields.boolean('Autoestéreo'),
                 'birlo': fields.boolean('Birlo de seguridad'),

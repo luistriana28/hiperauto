@@ -6,11 +6,13 @@
     "description": 
     """
         Agrega campos al pedido de ventas, adaptado a un taller mecánico
+        Tiene dependencias que se descargan en
+        bzr branch lp:sale-reports
     """,
     "author": "MAR Sistemas",
     "website": "http://www.marsistemas.com",
     "category": "Sales",
-    "depends": ["sale","base","sale_stock","fleet"],
+    "depends": ["base","sale","sale_stock","fleet","sale_order_webkit"],
     "data":['taller_mecanico_view.xml','taller_vehicle_view.xml'],
     "demo_xml": [],
     "update_xml": [],
