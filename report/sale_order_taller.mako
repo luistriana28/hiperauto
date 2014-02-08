@@ -203,11 +203,7 @@ td.date {
             <td>${_("☐")}</td>
             %endif
             <td>${_("Nivel de combustible")}</td>
-            %if order.nivel_combustible:
-            <td>${_("☑")}</td>
-            %else:
-            <td>${_("☐")}</td>
-            %endif
+            <td>${order.nivel_combustible}</td>
         </tr>
         <tr>
             <td>${_("Autoestéreo")}</td>
