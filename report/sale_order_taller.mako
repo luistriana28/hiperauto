@@ -134,7 +134,7 @@ td.date {
 
     <%def name="address(partner)">
         <%doc>
-            XXX add a helper for address in report_webkit module as this won't be suported in v8.0
+            XXX add a helper for address in report_webkit module as this won''t be suported in v8.0
         </%doc>
         %if partner.parent_id:
             <tr><td class="name">${partner.parent_id.name or ''}</td></tr>
@@ -171,10 +171,9 @@ td.date {
           ${address(partner=order.partner_invoice_id)}
         </table>
     </div>
-
     <h1 style="clear:both;">${quotation and _(u'N° de Cotización') or _(u'Número de Orden°') } ${order.name}</h1>
+    %if quotation:
     <h2>${_('Datos del Vehículo')}</h2>
-    
     <table class="list_main_table" width="100%">
         <tr>
             <td>${_("Vehículo / Placas:")}</td>
@@ -298,6 +297,7 @@ td.date {
             <td>${_(" ")}</td>
         </tr>
     </table>
+    %endif
 <br></br>
     <table class="basic_table" width="100%">
         <tr>
