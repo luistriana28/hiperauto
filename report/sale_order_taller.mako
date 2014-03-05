@@ -157,20 +157,11 @@ td.date {
       quotation = order.state in ['draft', 'sent']
     %>
     <div class="address">
-        <table class="recipient">
-          ${address(partner=order.partner_id)}
-        </table>
-
-        <table class="shipping">
-          <tr><td class="address_title">${_("Dirección de envío:")}</td></tr>
+    <table class="shipping">
+          <tr><td class="address_title">${_("Cliente:")}</td></tr>
           ${address(partner=order.partner_shipping_id)}
-        </table>
-
-        <table class="invoice">
-          <tr><td class="address_title">${_("Dirección de facturación:")}</td></tr>
-          ${address(partner=order.partner_invoice_id)}
-        </table>
-    </div>
+    </table>
+    </div>    
     <h1 style="clear:both;">${quotation and _(u'N° de Cotización') or _(u'Número de Orden°') } ${order.name}</h1>
     %if quotation:
     <h2>${_('Datos del Vehículo')}</h2>
@@ -345,7 +336,7 @@ td.date {
               <div class="nobreak">
                 <table style="width:100%">
                   <tr>
-       Y             <td class="main_col1">${ line.name }</td>
+                    <td class="main_col1">${ line.name }</td>
                     <td class="amount main_col2">${ formatLang(line.product_uos and line.product_uos_qty or line.product_uom_qty) }</td>
                     <td class="amount main_col3">${ line.product_uos and line.product_uos.name or line.product_uom.name }</td>
                     <td class="amount main_col4">${formatLang(line.price_unit)}</td>
