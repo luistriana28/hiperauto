@@ -8,3 +8,11 @@ class sale_shop(osv.osv):
                 'shop_user_id':fields.many2many('res.users', 'res_users_rel', 'shop_id', 'users_id', 'Responsables'),
         }
 sale_shop()
+
+class account_journal(osv.osv):
+    _name = 'account.journal'
+    _inherit = 'account.journal'
+    _columns = {
+                'journal_user_id':fields.many2many('res.users', 'res_users1_rel', 'journal_id', 'users_id', 'Responsables'),
+        }
+account_journal()

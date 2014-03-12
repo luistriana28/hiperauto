@@ -12,5 +12,16 @@
                 </field>
             </field>
         </record>
+        <record model='ir.ui.view' id='account_journal_form_taller'>
+            <field name='name'>account.journal.taller</field>
+            <field name='model'>account.journal</field>
+            <field name='inherit_id' ref='account.view_account_journal_form'/>
+            <field name='type'>form</field>
+            <field name='arch' type='xml'>
+                <field name="sequence_id" position="after">
+                    <field name="journal_user_id" widget="many2many_tags"/>
+                </field>
+            </field>
+        </record>
     </data>
 </openerp>

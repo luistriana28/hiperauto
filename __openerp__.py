@@ -7,7 +7,10 @@
     """
         Agrega campos al pedido de ventas, adaptado a un taller mecánico
         Tiene dependencias que se descargan en
+        
         bzr branch lp:sale-reports
+
+        bzr branch lp:webkit-utils/7.0
     """,
     "author": "MAR Sistemas",
     "website": "http://www.marsistemas.com",
