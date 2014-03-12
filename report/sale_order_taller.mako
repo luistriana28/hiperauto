@@ -163,7 +163,6 @@ td.date {
     </table>
     </div>    
     <h1 style="clear:both;">${quotation and _(u'N° de Cotización') or _(u'Número de Orden°') } ${order.name}</h1>
-    %if quotation:
     <h2>${_('Datos del Vehículo')}</h2>
     <table class="list_main_table" width="100%">
         <tr>
@@ -172,6 +171,7 @@ td.date {
             <td>${_("Número de serie:")}</td>
             <td>${order.vehicle_id.vin_sn_custom}</td>
     </table>
+    %if quotation:
     <table class="list_main_table" width="100%">
         <tr>
             <td>${_("Antena")}</td>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data noupdate="0">
-    <record model="ir.module.category" id="taller.module_category_taller">
+    <record model="ir.module.category" id="taller_mecanico.module_category_taller">
         <field name="name">Taller</field>
         <field name="description">Modulo de taller</field>
         <field name="sequence">2</field>
     </record>
-    <record id="taller.group_shop" model="res.groups">
+    <record id="taller_mecanico.group_shop" model="res.groups">
         <field name="name">Ver su tienda</field>
-        <field name="category_id" ref="taller.module_category_taller"/>
+        <field name="category_id" ref="taller_mecanico.module_category_taller"/>
         <field name="comment">El usuario solo puede ver su tienda.</field>
     </record>
     <record id="shop_restriction_user" model="ir.rule">
         <field name="name">Restringir tiendas</field>
         <field ref="model_sale_shop" name="model_id"/>
         <field name="domain_force">[('shop_user_id','=',user.id)]</field>
-        <field name="groups" eval="[(4, ref('taller.group_shop'))]"/>
+        <field name="groups" eval="[(4, ref('taller_mecanico.group_shop'))]"/>
     </record>
 </data>
 </openerp>
