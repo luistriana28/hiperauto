@@ -52,8 +52,19 @@
 			<field name="model">sale.order</field>
 			<field name='inherit_id' ref='sale.view_order_tree'/>
       		<field name="arch" type="xml">
-      			<field name="user_id" position="after">
-      				<field name="shop_id"/>
+      			<field name="partner_id" position="after">
+      				<field name="vehicle_id"/>
+		        </field>
+		    </field>
+		</record>
+<!-- Tree View Sale Order  --> 
+		<record model="ir.ui.view" id="view_quotation_tree_taller">
+			<field name="name">sale.order.taller.tree</field>
+			<field name="model">sale.order</field>
+			<field name='inherit_id' ref='sale.view_quotation_tree'/>
+      		<field name="arch" type="xml">
+      			<field name="partner_id" position="after">
+      				<field name="vehicle_id"/>
 		        </field>
 		    </field>
 		</record>
