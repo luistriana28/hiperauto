@@ -16,3 +16,11 @@ class account_journal(osv.osv):
                 'journal_user_id':fields.many2many('res.users', 'res_users1_rel', 'journal_id', 'users_id', 'Responsables'),
         }
 account_journal()
+
+class stock_warehouse(osv.osv):
+    _name = 'stock.warehouse'
+    _inherit = 'stock.warehouse'
+    _columns = {
+                'warehouse_user_id':fields.many2many('res.users', 'res_users2_rel', 'ware', 'users_id', 'Responsables'),
+        }
+stock_warehouse()
