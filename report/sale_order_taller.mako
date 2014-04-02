@@ -157,6 +157,10 @@ td.date {
       quotation = order.state in ['draft', 'sent']
     %>
     <div class="address">
+    <table class="recipient">
+          <tr><td class="address_title">${_("Expedido en:")}</td></tr>
+          ${address(partner=order.shop_id.warehouse_id.partner_id)}
+    </table>
     <table class="shipping">
           <tr><td class="address_title">${_("Cliente:")}</td></tr>
           ${address(partner=order.partner_shipping_id)}
