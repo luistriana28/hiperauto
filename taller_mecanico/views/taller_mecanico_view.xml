@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<!-- Record View Sale Order   --> 
+		<record model='ir.ui.view' id='sale_order_form_view'>
+			<field name='name'>sale.order.taller</field>
+			<field name='model'>sale.order</field>
+			<field name='inherit_id' ref='sale.view_order_form'/>
+			<field name='type'>form</field>
+			<field name='arch' type='xml'>
+				<xpath expr='/form/sheet/group' position="after">
+					<group string="Datos del Vehículo" attrs="{'invisible': [('state','not in',('draft','sent'))]}">
+						<group>
+							<group>
+								<field name="antena"/>
+								<field name="autoestereo"/>
+								<field name="birlo"/>
+								<field name="pasacorriente"/>
+								<field name="espejos_laterales"/>
+							</group>
+							<group>
+								<field name="refaccion"/><field name="maneral"/>
+								<field name="radio"/>
+								<field name="senales"/>
+								<field name="tapetes"/>
+							</group>
+						</group>
+						<group> 
+							<group>
+								<field name="extinguidor"/>
+								<field name="gato"/>
+								<field name="herramienta"/>
+								<field name="limpiadores"/>
+							</group>
+							<group>
+								<field name="nivel_combustible"/>
+								<field name="tapon_gasolina"/>
+								<field name="tapon_ruedas"/>
+							</group>
+							<field name="otro"/>
+						</group>
+					</group>
+				</xpath>
+				<field name="partner_id" position="after">
+					<field name="vehicle_id"/>
+				</field>
+			</field>
+		</record>
+<!-- Tree View Sale Order  --> 
+		<record model="ir.ui.view" id="view_order_tree_taller">
+			<field name="name">sale.order.taller.tree</field>
+			<field name="model">sale.order</field>
+			<field name='inherit_id' ref='sale.view_order_tree'/>
+      		<field name="arch" type="xml">
+      			<field name="partner_id" position="after">
+      				<field name="vehicle_id"/>
+		        </field>
+		    </field>
+		</record>
+<!-- Tree View Sale Order  --> 
+		<record model="ir.ui.view" id="view_quotation_tree_taller">
+			<field name="name">sale.order.taller.tree</field>
+			<field name="model">sale.order</field>
+			<field name='inherit_id' ref='sale.view_quotation_tree'/>
+      		<field name="arch" type="xml">
+      			<field name="partner_id" position="after">
+      				<field name="vehicle_id"/>
+		        </field>
+		    </field>
+		</record>
+<!-- Tree View Purchase Order  --> 
+		<record model="ir.ui.view" id="view_purchase_tree_taller">
+			<field name="name">purchase.order.taller.tree</field>
+			<field name="model">purchase.order</field>
+			<field name='inherit_id' ref='purchase.purchase_order_tree'/>
+      		<field name="arch" type="xml">
+      			<field name="partner_id" position="after">
+      				<field name="warehouse_id"/>
+		        </field>
+		    </field>
+		</record>
+<!-- Tree View Invoice  --> 
+		<record model="ir.ui.view" id="view_account_invoice_taller">
+			<field name="name">account.invoice.taller.tree</field>
+			<field name="model">account.invoice</field>
+			<field name='inherit_id' ref='account.invoice_tree'/>
+      		<field name="arch" type="xml">
+      			<field name="number" position="after">
+      				<field name="supplier_invoice_number" invisible="context.get('type') == 'out_invoice'"/>
+		        </field>
+		    </field>
+		</record>
+	</data>
+</openerp>

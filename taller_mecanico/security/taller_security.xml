@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="0">
+    <!-- Name of the module -->
+    <record model="ir.module.category" id="taller_mecanico.module_category_taller">
+        <field name="name">Taller</field>
+        <field name="description">Modulo de taller</field>
+        <field name="sequence">2</field>
+    </record>
+    <!-- Groups -->
+    <record id="taller_mecanico.group_shop" model="res.groups">
+        <field name="name">Ver su tienda</field>
+        <field name="category_id" ref="taller_mecanico.module_category_taller"/>
+        <field name="comment">El usuario solo puede ver su tienda.</field>
+    </record>
+    <record id="taller_mecanico.group_journal" model="res.groups">
+        <field name="name">Ver sus diarios</field>
+        <field name="category_id" ref="taller_mecanico.module_category_taller"/>
+        <field name="comment">El usuario solo puede ver sus diarios.</field>
+    </record>
+    <record id="taller_mecanico.group_warehouse" model="res.groups">
+        <field name="name">Ver sus almacenes</field>
+        <field name="category_id" ref="taller_mecanico.module_category_taller"/>
+        <field name="comment">El usuario solo puede ver sus almacenes.</field>
+    </record>
+    <record id="taller_mecanico.group_purchase" model="res.groups">
+        <field name="name">Ver sus compras</field>
+        <field name="category_id" ref="taller_mecanico.module_category_taller"/>
+        <field name="comment">El usuario solo puede ver sus compras.</field>
+    </record>
+    <!-- Rules -->
+    <record id="shop_restriction_user" model="ir.rule">
+        <field name="name">Restringir tiendas</field>
+        <field ref="model_sale_shop" name="model_id"/>
+        <field name="domain_force">[('shop_user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('taller_mecanico.group_shop'))]"/>
+    </record>
+    <record id="journal_restriction_user" model="ir.rule">
+        <field name="name">Restringir diarios</field>
+        <field ref="model_account_journal" name="model_id"/>
+        <field name="domain_force">[('journal_user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('taller_mecanico.group_journal'))]"/>
+    </record>
+    <record id="warehouse_restriction_user" model="ir.rule">
+        <field name="name">Restringir almacenes</field>
+        <field ref="model_stock_warehouse" name="model_id"/>
+        <field name="domain_force">[('warehouse_user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('taller_mecanico.group_warehouse'))]"/>
+    </record>
+    <record id="purchase_restriction_user" model="ir.rule">
+        <field name="name">Ver solo compras de usuario</field>
+        <field ref="purchase.model_purchase_order" name="model_id"/>
+        <field name="domain_force">[('warehouse_id.warehouse_user_id','=',user.id)]</field>
+        <field name="groups" eval="[(4, ref('taller_mecanico.group_purchase'))]"/>
+    </record>
+</data>
+</openerp>
