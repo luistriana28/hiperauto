@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_customer_invoice_validate" model="res.groups">
+        <field name="name">Customer Invoice Validate</field>
+    </record>
+    <record id="customer_invoice_id_form" model="ir.ui.view">
+        <field name="name">Account Invoice</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_invoice_open']" position='replace'>
+                    <button name="action_invoice_open" class="oe_highlight" states="draft" string="Validar" type="object" groups="hiperauto_security.group_customer_invoice_validate"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="customer_invoice_journal_filter" model="ir.filters">
+        <field name="name">Facturas de Cliente Hiperauto</field>
+        <field name="model_id">account.invoice</field>
+        <field name="domain">[[u'journal_id', u'not ilike', u'abono de ventas']]</field>
+        <field name="is_default" eval="True"/>
+        <field name="active" eval="True"/>
+        <field name="action_id" ref="__export__.ir_actions_257"/>
+        <field name="context">{u'group_by': [u'journal_id']}</field>
+    </record>
+    <record id="vendor_invoice_journal_filter" model="ir.filters">
+        <field name="name">Facturas de Prov. Hiperauto</field>
+        <field name="model_id">account.invoice</field>
+        <field name="domain">[[u'journal_id', u'not ilike', u'abono de compras'], [u'journal_id', u'not ilike', u'Matr\xedz']]</field>
+        <field name="is_default" eval="True"/>
+        <field name="user_id" eval="False"/>
+        <field name="active" eval="True"/>
+        <field name="action_id" ref="__export__.ir_actions_258"/>
+        <field name="context">{u'group_by': [u'journal_id']}</field>
+    </record>
+</odoo>
