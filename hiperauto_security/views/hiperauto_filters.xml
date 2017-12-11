@@ -19,7 +19,7 @@
         <field name="domain">[[u'journal_id', u'not ilike', u'abono de ventas']]</field>
         <field name="is_default" eval="True"/>
         <field name="active" eval="True"/>
-        <field name="action_id" ref="__export__.ir_actions_257"/>
+        <field name="action_id" ref="account.action_invoice_tree1"/>
         <field name="context">{u'group_by': [u'journal_id']}</field>
     </record>
     <record id="vendor_invoice_journal_filter" model="ir.filters">
@@ -29,7 +29,7 @@
         <field name="is_default" eval="True"/>
         <field name="user_id" eval="False"/>
         <field name="active" eval="True"/>
-        <field name="action_id" ref="__export__.ir_actions_258"/>
+        <field name="action_id" ref="account.action_invoice_tree2"/>
         <field name="context">{u'group_by': [u'journal_id']}</field>
     </record>
 </odoo>
