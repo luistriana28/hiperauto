@@ -3,12 +3,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Fix journal_id in account invoice',
+    'name': 'Account Invoice Operating Unit',
     'version': '10.0.1.0.0',
     'category': 'Account',
     'author': 'Jarsa Sistemas',
     'description': 'Write journal_id corresponding',
-    'summary': 'Create Custom Refunds',
+    'summary': 'Set the default journal to the invoices',
     'license': 'AGPL-3',
     'depends': [
         'account_operating_unit'
