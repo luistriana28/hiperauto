@@ -11,8 +11,10 @@ class AccountInvoice(models.Model):
     @api.model
     def default_get(self, fields):
         res = super(AccountInvoice, self).default_get(fields)
+        active_model = self._context.get('active_model')
         journal_type = (
-            'sale' if res['type'] in ['out_invoice', 'out_refund'] else 'purchase')
+            'sale' if res.get('type') in ['out_invoice', 'out_refund'] or
+            active_model == 'sale.order' else 'purchase')
         journal_id = self.env['account.journal'].search([(
             'type', '=', journal_type),
             ('operating_unit_id', 'in',
