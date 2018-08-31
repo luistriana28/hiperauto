@@ -2,21 +2,32 @@
 # © 2017 Comunitea
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api
+from odoo import api, fields, models
 
 
 class SaleAdvancePaymentInv(models.TransientModel):
     _inherit = 'sale.advance.payment.inv'
 
-    def _get_journal(self):
-        journals = self.env['account.journal'].search([('type', '=', 'sale')])
-        return journals and journals[0] or False
+    journal = fields.Many2one(
+        'account.journal',
+        domain=lambda self: [
+            ('type', '=', 'sale'), '|',
+            ('operating_unit_id', 'in', self.env.user.operating_unit_ids.ids),
+            ('operating_unit_id', '=', False)])
 
-    journal = fields.Many2one('account.journal', default=_get_journal)
+    @api.model
+    def default_get(self, fields):
+        res = super(SaleAdvancePaymentInv, self).default_get(fields)
+        journals = self.env['account.journal'].search([
+            ('type', '=', 'sale'),
+            ('operating_unit_id', 'in', self.env.user.operating_unit_ids.ids)
+        ], limit=1)
+        res['journal'] = journals.id
+        return res
 
     @api.multi
     def create_invoices(self):
         return super(
             SaleAdvancePaymentInv,
-            self.with_context(default_journal_id=self.journal)
+            self.with_context(default_journal_id=self.journal.id)
         ).create_invoices()
