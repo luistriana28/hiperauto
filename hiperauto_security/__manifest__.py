@@ -13,6 +13,7 @@
     'installable': True,
     'depends': [
         'sale_stock',
+        'purchase',
     ],
     'data': ['views/hiperauto_filters.xml',
              'views/hiperauto_security.xml'],
