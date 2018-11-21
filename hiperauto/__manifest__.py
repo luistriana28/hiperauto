@@ -14,6 +14,7 @@
         'invoice_custom_report',
         'sale_make_invoice_with_journal',
         'taller_mecanico',
+        'hiperauto_custom_views',
     ],
     'installable': True,
 }
