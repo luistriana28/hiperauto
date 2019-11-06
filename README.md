@@ -36,7 +36,6 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[abs_top_sold_products](abs_top_sold_products/) | 10.0.1.0.0 | Top Sold Products
 [hiperauto_custom_views](hiperauto_custom_views/) | 10.0.1.0.0 | Custom Views
 [invoice_custom_report](invoice_custom_report/) | 10.0.1.0.0 | Custom Invoice Report
 [account_invoice_operating_unit](account_invoice_operating_unit/) | 10.0.1.0.0 | Journals for OU's
