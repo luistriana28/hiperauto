@@ -16,7 +16,7 @@ class SaleAdvancePaymentInv(models.TransientModel):
             ('operating_unit_id', '=', False)])
 
     @api.model
-    def default_get(self, fields):
+    def default_get(self):
         res = super(SaleAdvancePaymentInv, self).default_get(fields)
         journals = self.env['account.journal'].search([
             ('type', '=', 'sale'),

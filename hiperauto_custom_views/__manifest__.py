@@ -8,9 +8,9 @@
     "category": "Custom views",
     "author": "Jarsa Sistemas",
     "depends": [
-        'sale',
+        'sale'
     ],
     "data": [
-        'views/sale_order_view.xml',
+        'views/sale_order_view.xml'
     ],
 }

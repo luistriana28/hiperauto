@@ -19,7 +19,7 @@
 #
 #############################################################################
 
-from odoo import api, fields, models, _
+from odoo import api, fields, models
 
 
 class ProductDetail(models.TransientModel):
@@ -47,7 +47,5 @@ class ProductDetail(models.TransientModel):
         if data['form']['top_products'] == 'by_units':
             return self.env['report'].get_action(
                 self, 'abs_top_sold_products.report_products', data=data)
-        else:
-            return self.env['report'].get_action(
-                self,
-                'abs_top_sold_products.report_products_amount', data=data)
+        return self.env['report'].get_action(
+            self, 'abs_top_sold_products.report_products_amount', data=data)

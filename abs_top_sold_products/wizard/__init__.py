@@ -19,4 +19,4 @@
 #
 ###############################################################################
 
-import product_detail
+import abs_top_sold_products.wizard.product_detail

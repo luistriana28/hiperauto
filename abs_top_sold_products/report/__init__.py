@@ -19,5 +19,4 @@
 #
 ###############################################################################
 
-import report_product
-import report_product_amount
+import abs_top_sold_products.report.report_product
