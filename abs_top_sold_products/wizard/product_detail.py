@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+#############################################################################
 #
 #    Odoo, Open Source Management Solution
 #    Copyright (C) 2018-Today Ascetic Business Solution <www.asceticbs.com>
@@ -17,42 +17,37 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+#############################################################################
 
 from odoo import api, fields, models, _
 
+
 class ProductDetail(models.TransientModel):
     _name = "product.detail"
-
 
     start_date = fields.Date(string="From Date", required='1')
     end_date = fields.Date(string="To Date", required='1')
     top_products = fields.Selection([
         ('by_units', 'Units'),
-        ('by_amounts', 'Sales')
-    ], string='According to', default = 'by_units')
-    no_of_products = fields.Integer(string='Number of Products to Display', default = '5')
+        ('by_amounts', 'Sales')],
+        string='According to', default='by_units')
+    no_of_products = fields.Integer(
+        string='Number of Products to Display', default='5')
 
     @api.multi
     def check_report(self):
         data = {}
-        data['form'] = self.read(['start_date', 'end_date', 'top_products', 'no_of_products'])[0]
+        data['form'] = self.read([
+            'start_date', 'end_date', 'top_products', 'no_of_products'])[0]
         return self._print_report(data)
 
-
     def _print_report(self, data):
-        data['form'].update(self.read(['start_date', 'end_date', 'top_products', 'no_of_products'])[0])
+        data['form'].update(self.read([
+            'start_date', 'end_date', 'top_products', 'no_of_products'])[0])
         if data['form']['top_products'] == 'by_units':
-            return self.env['report'].get_action(self, 'abs_top_sold_products.report_products', data=data)
+            return self.env['report'].get_action(
+                self, 'abs_top_sold_products.report_products', data=data)
         else:
-            return self.env['report'].get_action(self, 'abs_top_sold_products.report_products_amount', data=data)
-
-
-
-
-
-
-   
-
-
-    
+            return self.env['report'].get_action(
+                self,
+                'abs_top_sold_products.report_products_amount', data=data)

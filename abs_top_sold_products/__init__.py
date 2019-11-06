@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+############################################################################
 #
 #    Odoo, Open Source Management Solution
 #    Copyright (C) 2018-Today Ascetic Business Solution <www.asceticbs.com>
@@ -17,8 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###########################################################################
 
 from . import wizard
 from . import report
-

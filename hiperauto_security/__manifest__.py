@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright YEAR(S), AUTHOR(S)
+# © 2017 Jarsa Sistemas, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     'name': 'Hiperauto Security',
@@ -15,6 +15,8 @@
         'sale_stock',
         'purchase',
     ],
-    'data': ['views/hiperauto_filters.xml',
-             'views/hiperauto_security.xml'],
+    'data': [
+        'views/hiperauto_filters.xml',
+        'views/hiperauto_security.xml'
+        ],
 }

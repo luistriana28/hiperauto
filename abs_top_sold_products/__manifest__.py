@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###########################################################################
 #
 #    Odoo, Open Source Management Solution
 #    Copyright (C) 2018-Today Ascetic Business Solution <www.asceticbs.com>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###########################################################################
 
 {
     'name': "Top Sold Products",
@@ -26,13 +26,24 @@
     'summary': """Reports of Top Sold Products""",
     'license': 'AGPL-3',
     'website': 'http://www.asceticbs.com',
-    'description': """
-""",
+    'description': '',
     'version': '1.0',
-    'depends': ['base','product','sale'],
-    'data': ['wizard/top_sales_view.xml','views/top_sold_view.xml','report/selected_product_report.xml','report/selected_product_template.xml','report/selected_product_amount_report.xml','report/selected_product_amount_template.xml'],
-    'images': ['static/description/banner.png'],
+    'depends': [
+        'base',
+        'product',
+        'sale'
+        ],
+    'data': [
+        'wizard/top_sales_view.xml',
+        'views/top_sold_view.xml',
+        'report/selected_product_report.xml',
+        'report/selected_product_template.xml',
+        'report/selected_product_amount_report.xml',
+        'report/selected_product_amount_template.xml'
+        ],
+    'images': [
+        'static/description/banner.png'
+        ],
     'installable': True,
     'application': True,
-    'auto_install': False,
 }
