@@ -45,10 +45,8 @@ class ReportProducts(models.AbstractModel):
                         product_records.update({order.product_id: 0})
                     product_records[order.product_id] += order.product_uom_qty
 
-        for product_id, product_uom_qty in sorted(
-                product_records.items(),  # noqa
-                key=lambda (k, v): (v, k),  # noqa
-                reverse=True)[:docs.no_of_products]:
+        for product_id, product_uom_qty in product_records.sorted(
+                lambda pro: pro.product_id.name, pro.product_uom_qty):
             sorted_product_records.append({
                 'name': product_id.name, 'qty': int(product_uom_qty)})
 
