@@ -4,7 +4,7 @@
 
 {
     "name": "Custom views for Hiperauto",
-    "version": "10.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Custom views",
     "author": "Jarsa Sistemas",
     "depends": [

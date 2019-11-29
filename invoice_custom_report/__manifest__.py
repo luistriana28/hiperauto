@@ -5,11 +5,10 @@
 
 {
     "name": "Invoice Report for Hiperauto",
-    "version": "10.0.0.1.0",
+    "version": "12.0.0.1.0",
     "category": "Report",
     "author": "Jarsa Sistemas",
     "depends": [
-        'report',
         'account',
         'sale',
         'l10n_mx_base',

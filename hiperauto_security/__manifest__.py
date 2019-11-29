@@ -4,7 +4,7 @@
 {
     'name': 'Hiperauto Security',
     'summary': 'Security',
-    'version': '10.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Uncategorized',
     'website': 'https://odoo-community.org/',
     'author': 'Jarsa Sistemas S.A. de C.V., Odoo Community Association (OCA)',
