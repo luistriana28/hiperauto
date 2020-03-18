@@ -20,8 +20,6 @@ class AccountInvoice(models.Model):
                 res['journal_id'])
             if not active_journal.operating_unit_id:
                 return res
-            elif active_journal.operating_unit_id in user_ou:
-                return res
         journal_type = (
             'sale' if res.get('type') in ['out_invoice', 'out_refund'] or
             active_model == 'sale.order' else 'purchase')
