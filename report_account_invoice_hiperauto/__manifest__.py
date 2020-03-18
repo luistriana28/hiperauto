@@ -11,7 +11,7 @@
     "depends": [
         'account',
         'sale',
-        'l10n_mx_base',
+        'l10n_mx_edi'
     ],
     "data": [
         'report/l10n_mx_base_report.xml',
