@@ -3,29 +3,38 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    @api.model
-    def default_get(self, fields):
-        res = super(AccountInvoice, self).default_get(fields)
-        if self._context.get('default_journal_id'):
-            return res
-        active_model = self._context.get('active_model')
-        user_ou = self.env.user.operating_unit_ids
-        if active_model == 'sale.order' and res.get('journal_id'):
-            active_journal = self.env['account.journal'].browse(
-                res['journal_id'])
-            if not active_journal.operating_unit_id:
-                return res
-        journal_type = (
-            'sale' if res.get('type') in ['out_invoice', 'out_refund'] or
-            active_model == 'sale.order' else 'purchase')
-        journal_id = self.env['account.journal'].search([(
-            'type', '=', journal_type),
-            ('operating_unit_id', 'in', user_ou.ids)], limit=1)
-        res['journal_id'] = self.with_context(
-            default_journal_id=journal_id.id)._default_journal().id
+    @api.multi
+    @api.constrains('operating_unit_id', 'journal_id')
+    def _check_journal_operating_unit(self):
+        for ai in self:
+            if (
+                ai.journal_id.operating_unit_id and
+                ai.operating_unit_id and
+                ai.operating_unit_id != ai.journal_id.operating_unit_id
+            ):
+                if not self.env.user.default_operating_unit_id:
+                    return True
+                    raise ValidationError(_('The OU in the Invoice and in '
+                                            'Journal must be the same.'))
+        return True
+
+class SaleOrder(models.Model):
+    _inherit= 'sale.order'
+
+    @api.multi
+    def _prepare_invoice(self):
+        res= super(SaleOrder, self)._prepare_invoice()
+        if self.operating_unit_id:
+            journal = self.env['account.journal'].search(
+                [('operating_unit_id', '=', self.operating_unit_id.id),
+                 ('type', '=', 'sale')])
+            if journal:
+                res.update({'journal_id': journal.id})
         return res

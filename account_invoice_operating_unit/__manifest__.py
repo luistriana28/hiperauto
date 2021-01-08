@@ -11,7 +11,9 @@
     'summary': 'Set the default journal to the invoices',
     'license': 'AGPL-3',
     'depends': [
-        'account_operating_unit'
+        'operating_unit',
+        'account_operating_unit',
+        'sale'
     ],
     'installable': True,
 }
