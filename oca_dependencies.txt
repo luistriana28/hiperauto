@@ -1,7 +1,7 @@
 operating-unit git@github.com:OCA/operating-unit.git 12.0
-server-tools git@github.com:OCA/server-tools.git 12.0
 account-invoicing git@github.com:OCA/account-invoicing.git 12.0
-sale-workflow git@github.com:OCA/sale-workflow.git 12.0
+account-financial-reporting git@github.com:OCA/account-financial-reporting.git 12.0
 partner-contact git@github.com:OCA/partner-contact.git 12.0
-social git@github.com:OCA/social.git 12.0
-mail-addons git@github.com:OCA/mail-addons.git 12.0
+stock-logistics-workflow git@github.com:OCA/stock-logistics-workflow.git 12.0
+web git@github.com:OCA/web.git 12.0
+website git@github.com:OCA/website.git 12.0

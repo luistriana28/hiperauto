@@ -1,12 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="sale_order_view_for_hiperauto" model="ir.ui.view">
+
+    <!-- Form View SO -->
+    <record id="sale_order_view_form_hiperauto" model="ir.ui.view">
         <field name="name">hiperauto.sale.order</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_cancel']" position="attributes">
                 <attribute name="groups">account.group_account_manager</attribute>
+            </xpath>
+            <xpath expr="//sheet/group[2]/field[@name='confirmation_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//sheet/group[2]/field[@name='confirmation_date']" position="after">
+                <field name="date_order"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="sale_order_tree_hiperauto" model="ir.ui.view">
+        <field name="name">hiperauto.sale.order.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='confirmation_date']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='confirmation_date']" position="after">
+                <field name="date_order"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Product Template Procurements Buttons -->
+    <record id="product_template_form_view_procurement_button_hiperauto" model="ir.ui.view">
+        <field name="name">product.template.form.view.procurement.button.hiperauto</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='confirmation_date']" position="attributes">
+                <attribute name="groups">stock.group_stock_manager</attribute>
+            </xpath>
+            <xpath expr="//button[@name='confirmation_date']" position="attributes">
+                <attribute name="groups">stock.group_stock_manager</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- l10n_mx_facturae Required Fields -->
+    <record id="l10n_mx_facturae_33_hiperauto" model="ir.ui.view">
+        <field name="name">hiperauto.l10n_mx_facturae_33</field>
+        <field name="model">sale.oder</field>
+        <field name="inherit_id" ref="l10n_mx_facturae_33.sale_sat_inh"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='forma_pago_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='met_pago_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Operating Unit in Invoice -->
+    <record id="account_invoice_supplier_form_hiperauto" model="ir.ui.view">
+        <field name="name">account.invoice.supplier.form.hiperauto</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_bank_id']" position="after">
+                <field name="operating_unit_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Clients Tree View -->
+    <record id="res_partner_tree_hiperauto" model="ir.ui.view">
+        <field name="name">res.partner.tree.hiperauto</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="replace">
+                <field name="mobile"/>
             </xpath>
         </field>
     </record>

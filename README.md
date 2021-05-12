@@ -36,12 +36,11 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[hiperauto_custom_views](hiperauto_custom_views/) | 10.0.1.0.0 | Custom Views
-[invoice_custom_report](invoice_custom_report/) | 10.0.1.0.0 | Custom Invoice Report
 [account_invoice_operating_unit](account_invoice_operating_unit/) | 10.0.1.0.0 | Journals for OU's
-[hiperauto_security](hiperauto_security/) | 10.0.1.0.0 | Users Abilities
-[sale_make_invoice_with_journal](sale_make_invoice_with_journal/) | 10.0.1.0.0 | Make invoice with journal from SO's
-[taller_mecanico](taller_mecanico/) | 10.0.1.0.0 | Driver's for Cars
+[hiperauto_security](hiperauto_security/) | 12.0.1.0.0 | Users Abilities
+[hiperauto_views](hiperauto_views/) | 12.0.1.0.0 | Custom Views for Hiperauto
+[hiperauto_whatsapp](hiperauto_whatsapp/) | 12.0.1.0.0 | Whatsapp Button in Website
+[taller_mecanico](taller_mecanico/) | 12.0.1.0.0 | Car Repair Module
 
 
 
@@ -49,4 +48,4 @@ Unported addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[none](none/) | 10.0.1.0.0 | none
+[none](none/) | 12.0.1.0.0 | none
