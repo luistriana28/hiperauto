@@ -9,7 +9,7 @@
                     </symbol>
                 </svg>
                 <div class="whatsappapi whatsappapi--right whatsappapi--webp whatsappapi--dark-auto whatsappapi--show">
-                    <a t-attf-href="https://wa.me/#{website.whatsapp_number}" target="_blank" title="Whatsapp Send">
+                    <a t-attf-href="https://wa.me/#{website.whatsapp_number}?text=Quisiera%20cotizar%20un%20servicio" target="_blank" title="Whatsapp Send">
                         <div class="whatsappapi__button">
                             <svg class="whatsappapi__button__open">
                                 <use href="#whatsappapi_svg__logo"/>
