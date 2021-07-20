@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report id="admon_summary_report"
+        model="admon.summary.report.wizard"
+        string="Admon Summary Report"
+        report_type="qweb-pdf"
+        name="hiperauto_admin_report.admon_summary_report_view"
+        paperformat="hiperauto_admin_report.paperformat_admon_summary_report"
+        menu="False"/>
+
+   <template id="admon_summary_report_view">
+        <t t-call="web.html_container">
+            <div class="header" style="border-bottom: 1px solid black;">
+                <h3 class="text-center">Admon Report 
+                    <span style="font-size: 14px;"><strong>From</strong>: <t t-esc="date_start"/> <strong>To</strong>: <t t-esc="date_end"/>
+                    </span>
+                </h3>
+            </div>
+            <div class="article mt0 o_report_layout_standard">
+                <table class="table table-condensed table-bordered" t-foreach="docs" t-as="doc">
+                  <thead>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">Fecha</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Ventas</th>
+                      <td><span t-esc="'%.2f' % doc['total_sales']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Impuestos</th>
+                      <td><span t-esc="'%.2f' % doc['taxes']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Otros Gastos</th>
+                      <td><span t-esc="'%.2f' % doc['total_expense']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Nomina</th>
+                      <td><span t-esc="'%.2f' % doc['payroll']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Refacciones</th>
+                      <td><span t-esc="'%.2f' % doc['total_purchase']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Servicios</th>
+                      <td><span t-esc="'%.2f' % doc['services']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Publicidad</th>
+                      <td><span t-esc="'%.2f' % doc['ads']"/></td>
+                    </tr>
+                     <tr>
+                      <th scope="row">Comision Banco</th>
+                      <td><span t-esc="'%.2f' % doc['bank_comission']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Prestamos</th>
+                      <td><span t-esc="'%.2f' % doc['loans']"/></td>
+                    </tr>
+                    <tr>
+                      <th scope="row"># Tickets</th>
+                      <td>
+                        <span t-esc="doc['total_orders']"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Utilidad neta</th>
+                      <td>
+                        <span t-esc="'%.2f' % doc['utility']"/>
+                      </td>
+                    </tr>
+                     <tr>
+                      <th scope="row">% Utilidad</th>
+                      <td>
+                        <span t-esc="'%.2f' % doc['p_utility']"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Ticket Promedio</th>
+                      <td>
+                        <span t-esc="'%.2f' % doc['prom']"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">% Ganancia Ref.</th>
+                      <td>
+                        <span t-esc="'%.2f' % doc['p_ref']"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
