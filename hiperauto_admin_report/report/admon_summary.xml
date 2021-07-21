@@ -59,7 +59,8 @@
                     </tr>
                     <tr>
                       <th scope="row">Prestamos</th>
-                      <td><span t-esc="'%.2f' % doc['loans']"/></td>
+                      <td><span t-esc="'%.2f' % doc['loans']"/>
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row"># Tickets</th>

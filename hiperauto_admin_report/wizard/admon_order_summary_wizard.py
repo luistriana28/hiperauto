@@ -121,8 +121,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
         docs.append({
             'total_orders': total_orders,
             'total_sales': total_sales,
-            'taxes': taxes,
-            'payroll':payroll,
+            'taxes': total_orders,
+            'payroll': payroll,
             'total_purchase': total_purchase,
             'services': services,
             'ads': ads,
