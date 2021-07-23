@@ -73,8 +73,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
             start_date += delta
 
             orders = self.env['sale.order'].search([
-                ('confirmation_date', '>=', date.strftime(DATETIME_FORMAT)),
-                ('confirmation_date', '<', start_date.strftime(DATETIME_FORMAT)),
+                ('date_order', '>=', date.strftime(DATETIME_FORMAT)),
+                ('date_order', '<', start_date.strftime(DATETIME_FORMAT)),
                 ('state', 'in', ['sale', 'done']),
                 ('operating_unit_id.code', '=', station)
                 ])
@@ -121,7 +121,7 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
         docs.append({
             'total_orders': total_orders,
             'total_sales': total_sales,
-            'taxes': total_orders,
+            'taxes': taxes,
             'payroll': payroll,
             'total_purchase': total_purchase,
             'services': services,
