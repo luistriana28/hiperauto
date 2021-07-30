@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from odoo import api, fields, models
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
+from odoo.exceptions import ValidationError
 
 
 class AdmonSummaryReportWizard(models.TransientModel):
@@ -33,7 +34,7 @@ class AdmonSummaryReportWizard(models.TransientModel):
             'form': {
                 'date_start': self.date_start, 
                 'date_end': self.date_end,
-                'station': self.station
+                'station': self.station,
             },
         }
         return self.env.ref('hiperauto_admin_report.admon_summary_report').report_action(
@@ -52,6 +53,7 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
         date_start = data['form']['date_start']
         date_end = data['form']['date_end']
         station = data['form']['station']
+        sucursales = (suc.code for suc in self.env.user.operating_unit_ids)
 
         start_date = datetime.strptime(date_start, DATE_FORMAT)
         end_date = datetime.strptime(date_end, DATE_FORMAT)
@@ -68,79 +70,84 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
         loans = 0
         payroll = 0
         total_purchase = 0
-        while start_date <= end_date:
-            date = start_date
-            start_date += delta
 
-            orders = self.env['sale.order'].search([
-                ('date_order', '>=', date.strftime(DATETIME_FORMAT)),
-                ('date_order', '<', start_date.strftime(DATETIME_FORMAT)),
-                ('state', 'in', ['sale', 'done']),
-                ('operating_unit_id.code', '=', station)
-                ])
-            sos = len(orders)
-            sales = sum(order.amount_total for order in orders)
-            total_orders += sos
-            total_sales += sales
+        if station in sucursales:
+            while start_date <= end_date:
+                date = start_date
+                start_date += delta
 
-            purchases = self.env['account.invoice'].search([
-                ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
-                ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
-                ('state', 'in', ['open', 'paid']),
-                ('type', '=', 'in_invoice'),
-                ('journal_id', 'in', [27, 11, 17, 23]),
-                ('operating_unit_id.code', '=', station),
-                ])
-            purchase = sum(purc.amount_total for purc in purchases)
-            total_purchase += purchase
+                orders = self.env['sale.order'].search([
+                    ('date_order', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_order', '<', start_date.strftime(DATETIME_FORMAT)),
+                    ('state', 'in', ['sale', 'done']),
+                    ('operating_unit_id.code', '=', station)
+                    ])
+                sos = len(orders)
+                sales = sum(order.amount_total for order in orders)
+                total_orders += sos
+                total_sales += sales
 
-            invoices = self.env['account.invoice'].search([
-                ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
-                ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
-                ('state', 'in', ['open', 'paid']), ('type', '=', 'in_invoice'),
-                ('operating_unit_id.code', '=', station),
-                ('journal_id', 'not in', [27, 11, 17, 23])])
-            
-            for inv in invoices:
-                if inv.partner_id.category_id:
-                    if inv.partner_id.category_id.name == 'IMPUESTOS':
-                        taxes += inv.amount_total
-                    elif inv.partner_id.category_id.name == 'COMISION BANCO':
-                        bank_comission += inv.amount_total
-                    elif inv.partner_id.category_id.name == 'NOMINA':
-                        payroll += inv.amount_total
-                    elif inv.partner_id.category_id.name == 'SERVICIOS':
-                        services += inv.amount_total
-                    elif inv.partner_id.category_id.name == 'PUBLICIDAD':
-                        ads += inv.amount_total
-                    elif inv.partner_id.category_id.name == 'PRESTAMOS':
-                        loans += inv.amount_total
-                else: 
-                    total_expense += inv.amount_total
-        total_expenses = taxes + bank_comission + payroll + services + ads + loans + total_expense + total_purchase
-        docs.append({
-            'total_orders': total_orders,
-            'total_sales': total_sales,
-            'taxes': taxes,
-            'payroll': payroll,
-            'total_purchase': total_purchase,
-            'services': services,
-            'ads': ads,
-            'bank_comission': bank_comission,
-            'loans': loans,
-            'utility': (total_sales - total_expenses),
-            'p_utility': (((total_sales - total_expenses) * 100) / total_sales),
-            'p_ref': (((total_sales / total_purchase) * 100) - 100),
-            'total_expense': total_expense,
-            'prom': (total_sales / total_orders if total_orders != 0 else False),
-            'company': self.env.user.company_id
-        })
+                purchases = self.env['account.invoice'].search([
+                    ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
+                    ('state', 'in', ['open', 'paid']),
+                    ('type', '=', 'in_invoice'),
+                    ('journal_id', 'in', [27, 11, 17, 23]),
+                    ('operating_unit_id.code', '=', station),
+                    ])
+                purchase = sum(purc.amount_total for purc in purchases)
+                total_purchase += purchase
 
-        docargs = {
-            'date_start': data['form']['date_start'],
-            'date_end': data['form']['date_end'],
-            'doc_ids': data['ids'],
-            'doc_model': data['model'],
-            'docs': docs,
-        }
+                invoices = self.env['account.invoice'].search([
+                    ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
+                    ('state', 'in', ['open', 'paid']), ('type', '=', 'in_invoice'),
+                    ('operating_unit_id.code', '=', station),
+                    ('journal_id', 'not in', [27, 11, 17, 23])])
+                
+                for inv in invoices:
+                    if inv.partner_id.category_id:
+                        if inv.partner_id.category_id.name == 'IMPUESTOS':
+                            taxes += inv.amount_total
+                        elif inv.partner_id.category_id.name == 'COMISION BANCO':
+                            bank_comission += inv.amount_total
+                        elif inv.partner_id.category_id.name == 'NOMINA':
+                            payroll += inv.amount_total
+                        elif inv.partner_id.category_id.name == 'SERVICIOS':
+                            services += inv.amount_total
+                        elif inv.partner_id.category_id.name == 'PUBLICIDAD':
+                            ads += inv.amount_total
+                        elif inv.partner_id.category_id.name == 'PRESTAMOS':
+                            loans += inv.amount_total
+                    else: 
+                        total_expense += inv.amount_total
+            total_expenses = taxes + bank_comission + payroll + services + ads + loans + total_expense + total_purchase
+            docs.append({
+                'total_orders': total_orders,
+                'total_sales': total_sales,
+                'taxes': taxes,
+                'payroll': payroll,
+                'total_purchase': total_purchase,
+                'services': services,
+                'ads': ads,
+                'bank_comission': bank_comission,
+                'loans': loans,
+                'utility': (total_sales - total_expenses),
+                'p_utility': (((total_sales - total_expenses) * 100) / total_sales),
+                'p_ref': (((total_sales / total_purchase) * 100) - 100),
+                'total_expense': total_expense,
+                'prom': (total_sales / total_orders if total_orders != 0 else False),
+                'company': self.env.user.company_id
+            })
+
+            docargs = {
+                'date_start': data['form']['date_start'],
+                'date_end': data['form']['date_end'],
+                'sucursal': data['form']['station'],
+                'doc_ids': data['ids'],
+                'doc_model': data['model'],
+                'docs': docs,
+            }
+        else:
+            raise ValidationError('No seas metiche, no es tu sucursal')
         return docargs
