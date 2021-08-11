@@ -22,44 +22,80 @@
                     <tr>
                       <th scope="col">Sucursal</th>
                       <th scope="col"><t t-esc="sucursal"/></th>
+                      <th scope="col">Porcentaje</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <th scope="row">Ventas</th>
                       <td><span t-esc="'%.2f' % doc['total_sales']"/></td>
+                      <td>
+                        <t t-set="total_100" t-value="100"/>
+                        <span t-esc="total_100"/>%
+                      </td>
                     </tr>
                     <tr groups="account.group_account_manager">
                       <th scope="row">Impuestos</th>
                       <td><span t-esc="'%.2f' % doc['taxes']"/></td>
+                      <td>
+                        <t t-set="impuestos" t-value="(doc['taxes'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % impuestos"></span>%
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Otros Gastos</th>
                       <td><span t-esc="'%.2f' % doc['total_expense']"/></td>
+                      <td>
+                        <t t-set="otrosgastos" t-value="(doc['total_expense'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % otrosgastos"></span>%
+                      </td>
                     </tr>
                     <tr groups="account.group_account_manager">
                       <th scope="row">Nomina</th>
                       <td><span t-esc="'%.2f' % doc['payroll']"/></td>
+                      <td>
+                        <t t-set="nomina" t-value="(doc['payroll'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % nomina"></span>%
+                      </td>
                     </tr>
                     <tr>
                       <th scope="row">Refacciones</th>
                       <td><span t-esc="'%.2f' % doc['total_purchase']"/></td>
+                      <td>
+                        <t t-set="refs" t-value="(doc['total_purchase'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % refs"></span>%
+                      </td>
                     </tr>
                     <tr groups="account.group_account_manager">
                       <th scope="row">Servicios</th>
                       <td><span t-esc="'%.2f' % doc['services']"/></td>
+                      <td>
+                        <t t-set="services" t-value="(doc['services'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % services"></span>%
+                      </td>
                     </tr>
                     <tr groups="account.group_account_manager">
                       <th scope="row">Publicidad</th>
                       <td><span t-esc="'%.2f' % doc['ads']"/></td>
+                      <td>
+                        <t t-set="pub" t-value="(doc['ads'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % pub"></span>%
+                      </td>
                     </tr>
                      <tr groups="account.group_account_manager">
                       <th scope="row">Comision Banco</th>
                       <td><span t-esc="'%.2f' % doc['bank_comission']"/></td>
+                      <td>
+                        <t t-set="comission" t-value="(doc['bank_comission'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % comission"></span>%
+                      </td>
                     </tr>
                     <tr groups="account.group_account_manager">
                       <th scope="row">Prestamos</th>
-                      <td><span t-esc="'%.2f' % doc['loans']"/>
+                      <td><span t-esc="'%.2f' % doc['loans']"/></td>
+                      <td>
+                        <t t-set="loan" t-value="(doc['loans'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % loan"></span>%
                       </td>
                     </tr>
                     <tr>
@@ -72,6 +108,10 @@
                       <th scope="row">Utilidad neta</th>
                       <td>
                         <span t-esc="'%.2f' % doc['utility']"/>
+                      </td>
+                      <td>
+                        <t t-set="util" t-value="(doc['utility'] * total_100 / doc['total_sales'])"/>
+                        <span t-esc="'%.2f' % util"></span>%
                       </td>
                     </tr>
                      <tr groups="account.group_account_manager">
