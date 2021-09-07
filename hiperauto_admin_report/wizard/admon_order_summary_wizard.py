@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime, timedelta
-
 from odoo import api, fields, models
-from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 from odoo.exceptions import ValidationError
 
 
@@ -11,7 +10,7 @@ class AdmonSummaryReportWizard(models.TransientModel):
     _name = 'admon.summary.report.wizard'
 
     date_start = fields.Datetime(string='Start Date', required=True, default=fields.Datetime.now)
-    date_end = fields.Datetime(string= 'End Date', required=True, default=fields.Datetime.now)
+    date_end = fields.Datetime(string='End Date', required=True, default=fields.Datetime.now)
     station = fields.Selection(
         string='Sucursal',
         selection=[
@@ -19,8 +18,18 @@ class AdmonSummaryReportWizard(models.TransientModel):
             ('TEC', 'Paseo del Tec'),
             ('CONS', 'Constitucion'),
             ('PER', 'Periferico')],
-            default='REV',
-            required=True)
+        default='REV',
+        required=True)
+    
+    @api.onchange('date_start')
+    def _onchange_date_start(self):
+        if self.date_start and self.date_end and self.date_end < self.date_start:
+            self.date_end = self.date_start
+
+    @api.onchange('date_end')
+    def _onchange_date_end(self):
+        if self.date_end and self.date_end < self.date_start:
+            self.date_start = self.date_end
 
     @api.multi
     def print_report(self):
@@ -54,8 +63,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
         station = data['form']['station']
         sucursales = (suc.code for suc in self.env.user.operating_unit_ids)
 
-        start_date = datetime.strptime(date_start, DEFAULT_SERVER_DATETIME_FORMAT)
-        end_date = datetime.strptime(date_end, DEFAULT_SERVER_DATETIME_FORMAT)
+        start_date = datetime.strptime(date_start, DATETIME_FORMAT)
+        end_date = datetime.strptime(date_end, DATETIME_FORMAT) - timedelta(hours=5)
         delta = timedelta(days=1)
 
         docs = []
@@ -76,8 +85,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                 start_date += delta
 
                 orders = self.env['sale.order'].search([
-                    ('date_order', '>=', date),
-                    ('date_order', '<', date_end),
+                    ('date_order', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_order', '<', start_date.strftime(DATETIME_FORMAT)),
                     ('state', 'in', ['sale', 'done']),
                     ('operating_unit_id.code', '=', station)
                     ])
@@ -87,8 +96,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                 total_sales += sales
 
                 purchases = self.env['account.invoice'].search([
-                    ('date_invoice', '>=', date),
-                    ('date_invoice', '<', date_end),
+                    ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
                     ('state', 'in', ['open', 'paid']),
                     ('type', '=', 'in_invoice'),
                     ('journal_id', 'in', [27, 11, 17, 23]),
@@ -98,8 +107,8 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                 total_purchase += purchase
 
                 invoices = self.env['account.invoice'].search([
-                    ('date_invoice', '>=', date),
-                    ('date_invoice', '<', date_end),
+                    ('date_invoice', '>=', date.strftime(DATETIME_FORMAT)),
+                    ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
                     ('state', 'in', ['open', 'paid']), ('type', '=', 'in_invoice'),
                     ('operating_unit_id.code', '=', station),
                     ('journal_id', 'not in', [27, 11, 17, 23])])
@@ -120,7 +129,9 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                             loans += inv.amount_total
                     else: 
                         total_expense += inv.amount_total
-            total_expenses = taxes + bank_comission + payroll + services + ads + loans + total_expense + total_purchase
+            total_expenses = (
+                taxes + bank_comission + payroll +
+                services + ads + loans + total_expense + total_purchase)
             docs.append({
                 'total_orders': total_orders,
                 'total_sales': total_sales,
