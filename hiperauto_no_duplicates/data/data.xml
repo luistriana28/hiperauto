@@ -1,0 +1,15 @@
+<odoo>
+    <record model="ir.actions.server" id="clear_duplicates_products">
+        <field name="name">Clear Duplicate Products</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">records.clear_duplicates()</field>
+    </record>
+
+    <record model="ir.actions.server" id="clear_duplicates_partners">
+        <field name="name">Clear Duplicate Partners</field>
+        <field name="model_id" ref="product.model_res_partner"/>
+        <field name="state">code</field>
+        <field name="code">records.clear_duplicates()</field>
+    </record>
+</odoo>

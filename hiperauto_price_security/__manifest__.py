@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Copyright (C) 2015  ADHOC SA  (http://www.adhoc.com.ar)
+#    Copyright (C) 2021  Luis Triana
 #    All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
     'name': 'Price Security',
     'version': '12.0.1.1.0',
     'category': 'Sales Management',
-    'author': 'ADHOC SA, Odoo Community Association (OCA)',
+    'author': 'Luis Triana, Odoo Community Association (OCA)',
     'website': 'http://www.adhoc.com.ar/',
     'license': 'AGPL-3',
     'depends': [

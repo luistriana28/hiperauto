@@ -6,7 +6,7 @@
     "name": "Hiperauto Custom Views",
     "version": "12.0.1.0.0",
     "category": "Custom views",
-    "author": "Jarsa Sistemas",
+    "author": "Luis Triana, Jarsa Sistemas S.A. de C.V.",
     "depends": [
         'sale'
     ],
