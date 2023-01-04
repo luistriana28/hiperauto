@@ -19,5 +19,6 @@ class SaleOrder(models.Model):
                         continue
                     raise ValidationError(_(
                         'You cannot confirm order without stock. ' +
-                        'Product: ' + product.default_code + ' Stock: ' + str(available_qty)))
+                        'Product: ' + product.default_code +
+                        ' Stock: ' + str(available_qty)))
         return super(SaleOrder, self).action_confirm()

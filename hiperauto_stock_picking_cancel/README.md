@@ -1,0 +1,1 @@
+sr_stock_picking_cancel
