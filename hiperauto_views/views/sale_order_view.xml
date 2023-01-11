@@ -16,6 +16,9 @@
             <xpath expr="//sheet/group/group[2]/field[@name='confirmation_date']" position="after">
                 <field name="date_order"/>
             </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="confirm">¿Estás seguro(a) de Confirmar? Revisa BIEN porque no hay vuelta atrás</attribute>
+            </xpath>
         </field>
     </record>
 
