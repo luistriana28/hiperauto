@@ -17,7 +17,8 @@ class AdmonSummaryReportWizard(models.TransientModel):
             ('REV', 'Revolucion'),
             ('TEC', 'Paseo del Tec'),
             ('CONS', 'Constitucion'),
-            ('PER', 'Periferico')],
+            ('PER', 'Periferico'),
+            ('ABA', 'Abastos')],
         default='REV',
         required=True)
     
@@ -100,7 +101,7 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                     ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
                     ('state', 'in', ['open', 'paid']),
                     ('type', '=', 'in_invoice'),
-                    ('journal_id', 'in', [27, 11, 17, 23]),
+                    ('journal_id', 'in', [27, 11, 17, 23, 36]),
                     ('operating_unit_id.code', '=', station),
                     ])
                 purchase = sum(purc.amount_total for purc in purchases)
@@ -111,7 +112,7 @@ class ReportAdmonSummaryReportView(models.AbstractModel):
                     ('date_invoice', '<', start_date.strftime(DATETIME_FORMAT)),
                     ('state', 'in', ['open', 'paid']), ('type', '=', 'in_invoice'),
                     ('operating_unit_id.code', '=', station),
-                    ('journal_id', 'not in', [27, 11, 17, 23])])
+                    ('journal_id', 'not in', [27, 11, 17, 23, 36])])
                 
                 for inv in invoices:
                     if inv.partner_id.category_id:
