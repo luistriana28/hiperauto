@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="hiperauto_sale_order_new_client_tree" model="ir.ui.view">
+        <field name="name">hiperauto.sale.order.new.client.tree</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="is_first_time_customer"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
