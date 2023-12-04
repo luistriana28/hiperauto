@@ -11,9 +11,10 @@ class SaleOrder(models.Model):
     @api.depends('partner_id')
     def _compute_visit_count(self):
         for order in self:
-            order.visit_count = self.env['sale.order'].search_count([('partner_id', '=', order.partner_id.id)])
+            order.visit_count = self.env['sale.order'].search_count([(
+                'partner_id', '=', order.partner_id.id)])
 
     @api.depends('visit_count')
     def _compute_first_time_customer(self):
         for order in self:
-            order.is_first_time_customer = True if order.visit_count <= 1 else False
+            order.is_first_time_customer = True if order.visit_count == 1 else False
